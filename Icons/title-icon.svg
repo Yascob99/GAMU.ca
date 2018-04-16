@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="43px" height="43px" viewBox="0 0 43 43" enable-background="new 0 0 43 43" xml:space="preserve">
+<ellipse fill="#5B5B5B" cx="21.584" cy="21.667" rx="21.583" ry="21.318"/>
+<path fill="#FFFFFF" d="M33,30c0,1.656-1.363,3-3.043,3H12.711c-1.681,0-3.043-1.344-3.043-3V13c0-1.657,1.362-3,3.043-3h17.246
+	C31.637,10,33,11.343,33,13V30z"/>
+<g>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="13" y="14" width="17.25" height="13">
+			<feFlood  style="flood-color:white;flood-opacity:1" result="back"/>
+			<feBlend  in="SourceGraphic" in2="back" mode="normal"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="13" y="14" width="17.25" height="13" id="SVGID_1_">
+		<g filter="url(#Adobe_OpacityMaskFilter)">
+			
+				<image overflow="visible" width="23" height="17" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEASABIAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA
+EAMCAwYAAAGOAAABsAAAAiX/2wCEABALCwsMCxAMDBAXDw0PFxsUEBAUGx8XFxcXFx8eFxoaGhoX
+Hh4jJSclIx4vLzMzLy9AQEBAQEBAQEBAQEBAQEABEQ8PERMRFRISFRQRFBEUGhQWFhQaJhoaHBoa
+JjAjHh4eHiMwKy4nJycuKzU1MDA1NUBAP0BAQEBAQEBAQEBAQP/CABEIABEAFwMBIgACEQEDEQH/
+xAB8AAEBAQEAAAAAAAAAAAAAAAAABAUGAQEAAAAAAAAAAAAAAAAAAAAAEAACAgIDAAAAAAAAAAAA
+AAAEBQIDACAQFAYRAAICAAQBDQAAAAAAAAAAAAECEQMAEgQFIiAxYXGBkaEy0hMjFDUSAQAAAAAA
+AAAAAAAAAAAAACD/2gAMAwEAAhEDEQAAAOX05LTKSCIAH//aAAgBAgABBQDT/9oACAEDAAEFANP/
+2gAIAQEAAQUATVrJ09dBh9a2Jnn7b4DsWjMQchyzJu5//9oACAECAgY/AB//2gAIAQMCBj8AH//a
+AAgBAQEGPwBvt7fqdY4bz0ZioEc3CVx+HuHc/rxpVo2/U0VtYPdqszB7VkSqAkme3DCveK9vGY/G
+6qx6+OPDDW0b/Xq3ERVWlcmTHTiq+/UF7KGD1NCjKwMgwBHI/9k=" transform="matrix(1 0 0 1 10 12)">
+			</image>
+		</g>
+	</mask>
+	<g mask="url(#SVGID_1_)">
+		<g>
+			<path d="M30.25,15.5c0,0.829-0.672,1.5-1.5,1.5H14.5c-0.829,0-1.5-0.671-1.5-1.5l0,0c0-0.829,0.671-1.5,1.5-1.5h14.25
+				C29.578,14,30.25,14.671,30.25,15.5L30.25,15.5z"/>
+			<path d="M30.25,20.5c0,0.828-0.672,1.5-1.5,1.5H14.5c-0.829,0-1.5-0.672-1.5-1.5l0,0c0-0.828,0.671-1.5,1.5-1.5h14.25
+				C29.578,19,30.25,19.672,30.25,20.5L30.25,20.5z"/>
+			<path d="M23.969,25.5c0,0.828-0.428,1.5-0.954,1.5h-9.062C13.426,27,13,26.328,13,25.5l0,0c0-0.828,0.427-1.5,0.954-1.5h9.062
+				C23.541,24,23.969,24.672,23.969,25.5L23.969,25.5z"/>
+		</g>
+	</g>
+</g>
+</svg>
