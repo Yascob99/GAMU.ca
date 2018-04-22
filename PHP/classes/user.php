@@ -178,12 +178,12 @@ private function databaseConnection()
     } else {
             $this->db_connection = new mysqli(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT);
             if ($this->db_connection->connect_errno) {
-        		$this->errors[] = MESSAGE_DATABASE_ERROR . $this->db_connection->connect_error);
-        		return false;
-    		}
-    		else{
-    			return true;
-    		}
+                $this->errors[] = MESSAGE_DATABASE_ERROR . $this->db_connection->connect_error;
+                return false;
+            }
+            else{
+                return true;
+            }
     }
     // default return
     return false;
@@ -194,29 +194,29 @@ private function databaseConnection()
  */
 private function createNewPost($post_title, $post_preview, $post_content){
 
-	$post_title = trim($post_title);
+    $post_title = trim($post_title);
 
-	if (empty($post_title)) {
-		$this->errors[] = "Post title cannot be empty";
-	}
-	elseif(empty($post_content)){
-		$this->errors[] = "Post content cannot be empty.";
-	}
-	elseif ($this->databaseConnection()) {
+    if (empty($post_title)) {
+        $this->errors[] = "Post title cannot be empty";
+    }
+    elseif(empty($post_content)){
+        $this->errors[] = "Post content cannot be empty.";
+    }
+    elseif ($this->databaseConnection()) {
 
-		$user_name = $_SESSION["user_id"];
-		//TODO: put permission check here to see if they have permission to post.
-		$stmt = $this->db_connection->prepare('INSERT INTO posts (post_title, post_author_id, post_content, post_preview, post_date) VALUES(?, ?, ?, ?, ?)')
-		$stmt->bind_param('sisss', $post_title, $user_id, $post_content, $post_preview, now());
-		$stmt->execute();
-		
-		if ($this->db_connection->errno) {
-			$this->errors[] = "Post Failed!"
-		} else {
-			
-			$this->messages[] = "Post Created!";
-		}
-	}
+        $user_name = $_SESSION["user_id"];
+        //TODO: put permission check here to see if they have permission to post.
+        $stmt = $this->db_connection->prepare('INSERT INTO posts (post_title, post_author_id, post_content, post_preview, post_date) VALUES(?, ?, ?, ?, ?)');
+        $stmt->bind_param('sisss', $post_title, $user_id, $post_content, $post_preview, now());
+        $stmt->execute();
+
+        if ($this->db_connection->errno) {
+            $this->errors[] = "Post Failed!";
+        } else {
+
+            $this->messages[] = "Post Created!";
+        }
+    }
 
 }
 
@@ -249,7 +249,7 @@ private function registerNewUser($user_name, $user_real_name, $user_email, $user
     // check provided data validity
     // TODO: check for "return true" case early, so put this first
     if(empty($user_name)){
-    	$this->errors[] = MESSAGE_USERNAME_EMPTY;
+        $this->errors[] = MESSAGE_USERNAME_EMPTY;
     }elseif (empty($user_password) || empty($user_password_repeat)) {
         $this->errors[] = MESSAGE_PASSWORD_EMPTY;
     } elseif ($user_password !== $user_password_repeat) {
@@ -270,20 +270,19 @@ private function registerNewUser($user_name, $user_real_name, $user_email, $user
     // finally if all the above checks are ok
     } elseif ($this->databaseConnection()) {
         // check if username or email already exist
-        
+
         $stmt = $this->db_connection->prepare('SELECT user_name, user_email FROM users WHERE user_name=? OR user_email=?');
         $stmt->bind_param('ss', $user_name, $user_email);
         $stmt->execute();
-        
-        $result = $this->db_connection->query($q)
-        
+
+        $result = $this->db_connection->query($q);
+
         if (!$result){
-        	$this->errors[] = "QUERY FAILED: " . $this->db_connection->error;
+            $this->errors[] = "QUERY FAILED: " . $this->db_connection->error;
 
         } if (count($result) > 0) {
-        	// if username or/and email found in the database
-        	$this->errors[] = ($result[0]['user_name'] == $user_name) ? MESSAGE_USERNAME_EXISTS : MESSAGE_EMAIL_ALREADY_EXISTS;
-            }
+            // if username or/and email found in the database
+            $this->errors[] = ($result[0]['user_name'] == $user_name) ? MESSAGE_USERNAME_EXISTS : MESSAGE_EMAIL_ALREADY_EXISTS;
         } elseif (! count($result) > 0) {
             // check if we have a constant HASH_COST_FACTOR defined (in config/hashing.php),
             // if so: put the value into $hash_cost_factor, if not, make $hash_cost_factor = null
@@ -299,10 +298,10 @@ private function registerNewUser($user_name, $user_real_name, $user_email, $user
 
             // write new users data into database
             $user_ip = $_SERVER["REMOTE_ADDR"];
-            
-            $stmt = $this->db_connection->prepare('INSERT INTO users (user_name, user_email, user_real_name, user_password, user_verification_hash, user_registration_ip, user_registration_date) VALUES(?, ?, ?, ?, ?, ?, ?)';
-        	$stmt->bind_param("sssssss", $user_name, $user_email, $user_real_name, $user_password_hash,  $user_ip, $user_verification_hash, now())
-        	$result = $stmt->execute()
+
+            $stmt = $this->db_connection->prepare('INSERT INTO users (user_name, user_email, user_real_name, user_password, user_verification_hash, user_registration_ip, user_registration_date) VALUES(?, ?, ?, ?, ?, ?, ?)');
+            $stmt->bind_param("sssssss", $user_name, $user_email, $user_real_name, $user_password_hash,  $user_ip, $user_verification_hash, now());
+            $result = $stmt->execute();
 
             // id of new user
             $user_id = $this->db_connection->insert_id();
@@ -339,41 +338,41 @@ private function registerNewUser($user_name, $user_real_name, $user_email, $user
 
 //Send an email via PHPMailer
 public function sendEmail($from_email, $from_name ,$to_email, $subject, $message){
-	$mail = new PHPMailer;
+    $mail = new PHPMailer;
 
-	// please look into the config/config.php for much more info on how to use this!
-	// use SMTP or use mail()
-	if (EMAIL_USE_SMTP) {
-		// Set mailer to use SMTP
-		$mail->IsSMTP();
-		//useful for debugging, shows full SMTP errors
-		//$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-		// Enable SMTP authentication
-		$mail->SMTPAuth = EMAIL_SMTP_AUTH;
-		// Enable encryption, usually SSL/TLS
-		if (defined(EMAIL_SMTP_ENCRYPTION)) {
-			$mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
-		}
-		// Specify host server
-		$mail->Host = EMAIL_SMTP_HOST;
-		$mail->Username = EMAIL_SMTP_USERNAME;
-		$mail->Password = EMAIL_SMTP_PASSWORD;
-		$mail->Port = EMAIL_SMTP_PORT;
-	} else {
-		$mail->IsMail();
-	}
-	$mail->From = $from_email;
-	$mail->FromName = $from_name;
-	$mail->AddAddress($to_email);
-	$mail->Subject = $subject;
+    // please look into the config/config.php for much more info on how to use this!
+    // use SMTP or use mail()
+    if (EMAIL_USE_SMTP) {
+        // Set mailer to use SMTP
+        $mail->IsSMTP();
+        //useful for debugging, shows full SMTP errors
+        //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        // Enable SMTP authentication
+        $mail->SMTPAuth = EMAIL_SMTP_AUTH;
+        // Enable encryption, usually SSL/TLS
+        if (defined(EMAIL_SMTP_ENCRYPTION)) {
+            $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
+        }
+        // Specify host server
+        $mail->Host = EMAIL_SMTP_HOST;
+        $mail->Username = EMAIL_SMTP_USERNAME;
+        $mail->Password = EMAIL_SMTP_PASSWORD;
+        $mail->Port = EMAIL_SMTP_PORT;
+    } else {
+        $mail->IsMail();
+    }
+    $mail->From = $from_email;
+    $mail->FromName = $from_name;
+    $mail->AddAddress($to_email);
+    $mail->Subject = $subject;
 
-	$mail->Body = $message;
-	if(!$mail->Send()) {
-		$this->errors[] = "Email Failed to send" . $mail->ErrorInfo;
-		return false;
-	} else {
-		return true;
-	}
+    $mail->Body = $message;
+    if(!$mail->Send()) {
+        $this->errors[] = "Email Failed to send" . $mail->ErrorInfo;
+        return false;
+    } else {
+        return true;
+    }
 }
 
 //Send a verification email
@@ -382,10 +381,10 @@ public function sendVerificationEmail($user_id, $user_email, $user_activation_ha
 
     $link = EMAIL_VERIFICATION_URL.'?id='.urlencode($user_id).'&verification_code='.urlencode($user_activation_hash);
 
-	$sent = $this->sendEmail(EMAIL_VERIFICATION_FROM, EMAIL_VERIFICATION_FROM_NAME, $user_email, EMAIL_VERIFICATION_SUBJECT, EMAIL_VERIFICATION_CONTENT.' '.$link)
+    $sent = $this->sendEmail(EMAIL_VERIFICATION_FROM, EMAIL_VERIFICATION_FROM_NAME, $user_email, EMAIL_VERIFICATION_SUBJECT, EMAIL_VERIFICATION_CONTENT.' '.$link);
 
     if(!$sent) {
-    	$this->errors[] = MESSAGE_VERIFICATION_MAIL_NOT_SENT . $mail->ErrorInfo;
+        $this->errors[] = MESSAGE_VERIFICATION_MAIL_NOT_SENT . $mail->ErrorInfo;
         return false;
     } else {
         return true;
@@ -564,7 +563,7 @@ private function loginWithPostData($user_login, $user_password, $user_rememberme
             $sth = $this->db_connection->prepare('UPDATE users '
                     . 'SET user_failed_logins = user_failed_logins+1, user_last_failed_login = ? '
                     . 'WHERE user_name = ? OR user_email = ? OR user_real_name = ?');
-            $sth->bind_param('ssss', time(), $user_login, $user_login, $user_login)
+            $sth->bind_param('ssss', time(), $user_login, $user_login, $user_login);
             $sth->execute();
 
             $this->errors[] = MESSAGE_PASSWORD_WRONG;
